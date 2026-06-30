@@ -1,0 +1,170 @@
+/* Container principal ocupando a tela inteira */
+.login-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Lado Esquerdo - Centralização do Carro */
+.left-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.car-img {
+  max-width: 85%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Lado Direito - Formulário */
+.right-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+/* Elementos do Cabeçalho */
+.logo-img {
+  max-width: 140px;
+  height: auto;
+  margin-bottom: 50px;
+}
+
+.welcome-title {
+  color: #439a86; /* Tom verde/aqua do protótipo */
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* Estilização dos Inputs com Ícones */
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #a0a0a0;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 2px 8px;
+  background-color: #ffffff;
+}
+
+.input-icon {
+  color: #888888;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.input-group input {
+  border: none;
+  width: 100%;
+  padding: 10px 4px;
+  font-size: 14px;
+  color: #333333;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: #b0b0b0;
+}
+
+/* Linha do Logar Automaticamente */
+.remember-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.remember-label {
+  font-size: 13px;
+  color: #666666;
+}
+
+/* Switch Toggle (Botão de deslizar) */
+.toggle-switch {
+  position: relative;
+  width: 34px;
+  height: 20px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .switch-slider {
+  background-color: #439a86;
+}
+
+input:checked + .switch-slider:before {
+  transform: translateX(14px);
+}
+
+/* Botão Entrar Cinza */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #b0b8c0; /* Cinza do protótipo */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #9aa2aa;
+}
+
+/* Texto de Erro */
+.error-text {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 12px;
+}

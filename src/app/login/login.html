@@ -1,0 +1,47 @@
+<div class="login-wrapper">
+
+    <!-- Lado Esquerdo: Imagem do Veículo -->
+    <div class="left-side">
+        <img src="ranger.png" alt="Ford Ranger" class="car-img">
+    </div>
+
+    <!-- Lado Direito: Formulário de Login -->
+    <div class="right-side">
+        <div class="form-container">
+
+            <!-- Logo Oficial Ford -->
+            <img src="ford.png" alt="Ford Logo" class="logo-img">
+
+            <h2 class="welcome-title">Boas-vindas</h2>
+
+            <form (ngSubmit)="onLogin()">
+                <!-- Campo Usuário / E-mail -->
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" name="usuario" [(ngModel)]="usuario" placeholder="Insira seu e-mail" required>
+                </div>
+
+                <!-- Campo Senha -->
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" name="senha" [(ngModel)]="senha" placeholder="Insira sua senha" required>
+                </div>
+
+                <!-- Opção Logar Automaticamente -->
+                <div class="remember-row">
+                    <label class="remember-label">Logar automaticamente</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" class="switch-slider"></label>
+                    </div>
+                </div>
+
+                <!-- Botão Entrar -->
+                <button type="submit" class="btn-submit">Entrar</button>
+            </form>
+
+            <p *ngIf="erroMensagem" class="error-text">{{ erroMensagem }}</p>
+        </div>
+    </div>
+
+</div>

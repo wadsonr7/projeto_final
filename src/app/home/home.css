@@ -12,12 +12,12 @@
 /* Barra Lateral Esquerda Cinza */
 .sidebar {
   width: 200px;
-  background-color: #e0e0e0; /* Cinza claro do protótipo */
+  background-color: #1050beaa; /* Cinza claro do protótipo */
   display: flex;
   flex-direction: column;
   padding: 15px;
   box-sizing: border-box;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ebe0e0;
 }
 
 .logo-container {
@@ -42,11 +42,11 @@
   font-size: 14px;
   font-weight: bold;
   padding: 8px 5px;
-  color: #439a86; /* Cor verde/azulada dos links */
+  color: #e6f0ed; /* Cor verde/azulada dos links */
 }
 
 .menu-item.active {
-  color: #3b7a6c;
+  color: #e9f0ee;
 }
 
 /* Conteúdo Principal Direito */
@@ -65,7 +65,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(67, 154, 134, 0.7); /* Verde água com 70% de transparência */
+  background-color: rgba(235, 243, 241, 0.7); /* Verde água com 70% de transparência */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,7 +73,7 @@
 
 /* Caixa central de texto com borda fina escura */
 .info-card {
-  border: 1px solid #2e5c51;
+  border: 1px solid #101111;
   padding: 40px;
   width: 80%;
   max-width: 450px;
@@ -87,13 +87,13 @@
 
 .system-title {
   font-size: 14px;
-  color: #1e3f37;
+  color: #0d72ad; /* Azul brilhante do título "Sistema de Gestão de Frota" */
   margin: 0 0 25px 0;
 }
 
 .welcome-text {
   font-size: 22px;
-  color: #00a2ff; /* Azul brilhante do texto "Seja bem vindo(a)!" */
+  color: #0d72ad; /* Azul brilhante do texto "Seja bem vindo(a)!" */
   margin: 0;
   font-weight: normal;
 }

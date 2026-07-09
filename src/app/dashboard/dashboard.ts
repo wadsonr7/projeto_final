@@ -1,192 +1,79 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, OnDestroy, Renderer2, inject } from '@angular/core'; // Adicionado 'OnDestroy'
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
-
-import { VehicleService, Vehicle, VehicleData } from '../services/vehicle.service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
-export class Dashboard implements OnInit, OnDestroy {
-  menuAberto = false;
-  dashboardVazio = true;
+export class DashboardComponent implements AfterViewInit, OnDestroy {
+  // Adicionado 'OnDestroy' aqui
+  private currentIndex = 0;
+  isSidebarOpen = false;
+  private autoPlayTimer: any; // Guarda o temporizador do carrossel
 
-  vehicles: Vehicle[] = [];
-  vehiclesOriginal: Vehicle[] = [];
+  private router = inject(Router);
+  private renderer = inject(Renderer2);
+  private el = inject(ElementRef);
 
-  selectedVehicle: Vehicle | null = null;
+  constructor() {}
 
-  selectedVehicleName = '';
-
-  vinSelecionado = '';
-
-  vehicleData: VehicleData | null = null;
-
-  private vinSearchSubject = new Subject<string>();
-
-  private searchSubscription!: Subscription;
-
-  constructor(
-    private vehicleService: VehicleService,
-
-    private router: Router,
-  ) {}
-
-  ngOnInit(): void {
-    this.loadVehicles();
-
-    this.setupVinSearch();
+  logout() {
+      this.stopAutoPlay(); 
+    this.router.navigate(['/']);
   }
 
-  ngOnDestroy(): void {
-    if (this.searchSubscription) {
-      this.searchSubscription.unsubscribe();
+  ngAfterViewInit() {
+    const container = this.el.nativeElement.querySelector('.carousel-container');
+    if (container) {
+      this.renderer.listen(container, 'changeSlide', (event: CustomEvent) => {
+        this.moveSlide(event.detail);
+        this.resetAutoPlay(); // Reinicia o tempo se o usuário clicar manualmente
+      });
+    }
+
+    // Inicia o carrossel automático ao carregar a página
+    this.startAutoPlay();
+  }
+
+  // Executado automaticamente quando o usuário sai da página
+  ngOnDestroy() {
+    this.stopAutoPlay();
+  }
+
+  // Função que inicia a contagem de 10 segundos
+  private startAutoPlay() {
+    this.autoPlayTimer = setInterval(() => {
+      this.moveSlide(1); // Passa para a próxima imagem
+    }, 10000); // 10000 milissegundos = 10 segundos
+  }
+
+  // Para o temporizador atual
+  private stopAutoPlay() {
+    if (this.autoPlayTimer) {
+      clearInterval(this.autoPlayTimer);
     }
   }
 
-  toggleMenu() {
-    this.menuAberto = !this.menuAberto;
+  // Reseta o tempo caso o usuário clique nas setas antes dos 10 segundos
+  private resetAutoPlay() {
+    this.stopAutoPlay();
+    this.startAutoPlay();
   }
 
-  irParaHome() {
-    this.router.navigate(['/home']);
+  private moveSlide(direction: number) {
+    const items = this.el.nativeElement.querySelectorAll('.carousel-item');
+    if (!items.length) return;
 
-    this.menuAberto = false;
-  }
+    this.renderer.removeClass(items[this.currentIndex], 'active');
+    this.currentIndex += direction;
 
-  irParaDashboard() {
-    this.router.navigate(['/dashboard']);
+    if (this.currentIndex >= items.length) this.currentIndex = 0;
+    if (this.currentIndex < 0) this.currentIndex = items.length - 1;
 
-    this.menuAberto = false;
-  }
-
-  logout() {
-    localStorage.clear();
-
-    this.router.navigate(['/login']);
-  }
-
-  loadVehicles() {
-    this.vehicleService
-
-      .getVehicles()
-
-      .pipe(
-        pluck('vehicles'),
-
-        map((vehicles) => vehicles),
-      )
-
-      .subscribe((data) => {
-        this.vehicles = data;
-
-        this.vehiclesOriginal = data;
-
-        if (data.length > 0) {
-          this.setVehicleByName(data[0].vehicle);
-        }
-      });
-  }
-
-  onVehicleChange() {
-    if (!this.selectedVehicleName) return;
-
-    this.setVehicleByName(this.selectedVehicleName);
-  }
-
-  setVehicleByName(vehicleName: string) {
-    const found = this.vehicles.find((v) => v.vehicle === vehicleName);
-
-    if (!found) return;
-
-    this.selectedVehicle = found;
-
-    this.selectedVehicleName = found.vehicle;
-
-    this.vinSelecionado = this.getVin(found.vehicle);
-
-    this.dashboardVazio = false;
-
-    this.loadVehicleData();
-  }
-
-  onVinSearch() {
-    this.vinSearchSubject.next(this.vinSelecionado);
-  }
-
-  setupVinSearch() {
-    this.searchSubscription = this.vinSearchSubject
-
-      .pipe(
-        debounceTime(100),
-
-        distinctUntilChanged(),
-
-        filter((vin) => !!vin && vin.trim().length > 0),
-      )
-
-      .subscribe((vin: string) => {
-        this.fetchVehicleDataByVin(vin);
-      });
-  }
-
-  fetchVehicleDataByVin(vin: string) {
-    this.vehicleService
-
-      .getVehicleData(vin)
-
-      .subscribe({
-        next: (data) => {
-          this.vehicleData = data;
-
-          this.dashboardVazio = false;
-
-          const found = this.vehicles.find((v) => this.getVin(v.vehicle) === vin);
-
-          if (found) {
-            this.selectedVehicle = found;
-
-            this.selectedVehicleName = found.vehicle;
-          }
-        },
-
-        error: () => {
-          this.vehicleData = null;
-        },
-      });
-  }
-
-  loadVehicleData() {
-    if (!this.vinSelecionado) return;
-
-    this.vehicleService
-
-      .getVehicleData(this.vinSelecionado)
-
-      .subscribe((data) => {
-        this.vehicleData = data;
-      });
-  }
-
-  getVin(vehicle: string): string {
-    const vins: Record<string, string> = {
-      Ranger: '2FRHDUYS2Y63NHD22454',
-
-      Mustang: '2RFAASDY54E4HDU34874',
-
-      Territory: '2FRHDUYS2Y63NHD22455',
-
-      'Bronco Sport': '2RFAASDY54E4HDU34875',
-    };
-
-    return vins[vehicle];
+    this.renderer.addClass(items[this.currentIndex], 'active');
   }
 }

@@ -6,7 +6,7 @@ export const authGuard: CanActivateFn = () => {
 
   const usuario = localStorage.getItem('usuario');
 
-  if (usuario) {
+  if (usuario === 'true') {
     return true;
   }
 

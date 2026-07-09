@@ -1,31 +1,25 @@
 <div class="layout-container">
-
-    <!-- Barra Lateral Esquerda (Sidebar) -->
-    <aside class="sidebar">
-        <div class="logo-container">
-            <img src="ford.png" alt="Ford Logo" class="sidebar-logo">
-        </div>
-
-        <nav class="menu-nav">
-            <a routerLink="/home" class="menu-item active">Home</a>
-            <a routerLink="/dashboard" class="menu-item">Dashboard</a>
-            <a routerLink="/logout" class="menu-item">Sair</a>
-        </nav>
-    </aside>
-
-    <!-- Conteúdo Principal Direito (Imagem de Fundo + Filtro Verde) -->
+    <!-- Conteúdo Principal (Imagem de Fundo + Filtro Verde) -->
     <main class="main-content">
+        <img src="img principal casa.jpg" alt="Fundo Casa de Temporada" class="bg-image">
 
-        <img src="ranger.png" alt="">
         <div class="green-overlay">
+            <!-- Novo Cartão de Visitas Premium -->
+            <div class="premium-card">
+                <div class="card-badge">Exclusivo</div>
+                <h3 class="card-subtitle">Aluguel de Casas por Temporada</h3>
+                <h1 class="card-title">Seja bem-vindo(a)</h1>
+                <p class="card-tagline">Encontre o cenário perfeito para as suas próximas memórias.</p>
 
-            <!-- Cartão com borda fina contendo as mensagens -->
-            <div class="info-card">
-                <p class="system-title">Sistema de dados FORD</p>
-                <h1 class="welcome-text">Seja bem vindo(a)!</h1>
+                <!-- Detalhes do Cartão -->
+                <div class="card-details">
+                    <span class="detail-item">📍 Destinos Premium</span>
+                    <span class="detail-item">⭐ Suporte 24/7</span>
+                </div>
+
+                <!-- Botão configurado para navegação interna do Angular -->
+                <button class="card-btn" routerLink="/dashboard">Explorar Imóveis</button>
             </div>
-
         </div>
     </main>
-
 </div>

@@ -1,158 +1,93 @@
-<div class="dashboard-container">
-  
-  <!-- BARRA DE NAVEGAÇÃO SUPERIOR -->
-  <nav class="top-navbar">
-    <div class="nav-left">
-      <button class="menu-toggle-btn" (click)="toggleMenu()">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-      <span class="nav-brand">Sistema de Dados FORD</span>
-    </div>
-    <div class="nav-right">
-      <button class="btn-nav-link" (click)="irParaHome()">Home</button>
-      <button class="btn-logout" (click)="logout()">Sair</button>
-    </div>
-  </nav>
+<div class="layout-container">
 
-  <!-- MENU LATERAL RETRÁTIL -->
-  <div class="sidebar" [class.sidebar-open]="menuAberto">
-    
-        <div class="logo-area">
-
-            <img
-                src="ford.png"
-                alt="Ford"
-                class="sidebar-logo">
-
-        </div>
-
-    <button class="btn-close-sidebar" (click)="toggleMenu()">&times;</button>
-    <div class="sidebar-links">
-      <button class="sidebar-item" (click)="irParaHome()">🏠 Home</button>
-      <button class="sidebar-item active" (click)="irParaDashboard()">📊 Dashboard</button>
-      <button class="sidebar-item text-danger" (click)="logout()">🚪 Sair</button>
-    </div>
-  </div>
-
-  <!-- CONTEÚDO PRINCIPAL -->
-  <div class="main-content" (click)="menuAberto ? toggleMenu() : null">
-    
-    <div class="page-header">
-      <h2>Dashboard FORD</h2>
-      <div class="divider"></div>
+  <!-- Barra Lateral Esquerda (Sidebar) -->
+  <aside class="sidebar" [class.active]="isSidebarOpen">
+    <div class="logo-container">
+      <img src="img logo casa.webp" alt="casa Logo" class="sidebar-logo">
     </div>
 
-    <!-- SEÇÃO DE SELEÇÃO E CARDS INDICADORES -->
-    <div class="dashboard-grid">
-      
-      <!-- Filtro por nome do veículo -->
-      <div class="filter-card">
-        <label for="vehicleSelect" class="label-uppercase">Veículo</label>
-        <select id="vehicleSelect" class="custom-select" 
-                [(ngModel)]="selectedVehicleName" 
-                (change)="onVehicleChange()">
-          <option value="" disabled>Selecione um veículo...</option>
-          <option *ngFor="let v of vehicles" [value]="v.vehicle">{{ v.vehicle }}</option>
-        </select>
-      </div>
+    <nav class="menu-nav">
+      <a routerLink="/home" class="menu-item">Início</a>
+      <a routerLink="/dashboard" class="menu-item active">Principal</a>
+<a (click)="logout()" class="menu-item" style="cursor: pointer;">Sair</a>
+    </nav>
+  </aside>
 
-      <!-- Grid de Métricas -->
-      <div class="metrics-grid" *ngIf="selectedVehicle">
-        
-        <!-- Card 1: Total de Vendas -->
-        <div class="metric-card border-blue">
-          <div class="metric-title">Total de Vendas</div>
-          <div class="metric-value">{{ selectedVehicle.volumetotal | number:'1.0-0':'pt-BR' }}</div>
-          <span class="metric-unit">unid.</span>
+  <!-- Área de Conteúdo Direita -->
+  <div class="main-content">
+
+    <!-- O Carrossel e os Textos Originais do Seu Dashboard -->
+    <div class="dashboard-page">
+
+      <!-- LADO ESQUERDO: Textos e Descrições (Sem o Botão) -->
+      <section class="dashboard-intro">
+        <h1>Casas Para Aluguel Na Linha Verde</h1>
+        <p class="subtitle">Encontre o imóvel ideal para morar com conforto, segurança e praticidade na região da Linha
+          Verde.
+          Oferecemos casas para aluguel em excelentes localizações.
+        </p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="icon">🏡</div>
+            <div>
+              <a href="https://pt.wikipedia.org/wiki/Imbassa%C3%AD"><h3>Imbassai</h3></a>
+              <p>Piscina privativa, área gourmet com churrasqueira, sala ampla e aconchegante,
+                cozinha completa, quartos confortáveis e bem ventilados, banheiros espaçosos, Wi-Fi, garagem e ambiente.
+                O grande destaque da vila é o deslumbrante encontro do Rio Imbassaí com o mar.
+              </p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="icon">🏡</div>
+            <div>
+              
+              <a href=""><h3>Monte Gordo</h3></a>
+              <p>Piscina privativa, área gourmet com churrasqueira, sala ampla e aconchegante,
+                cozinha completa, quartos confortáveis e bem ventilados, banheiros espaçosos, Wi-Fi, garagem e ambiente.
+                Destaca-se por sua proximidade com algumas das praias mais famosas da Linha Verde.
+              </p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="icon">🏡</div>
+            <div>
+              <h3>Costa do Sauipe</h3>
+              <p>Piscina privativa, área gourmet com churrasqueira, sala ampla e aconchegante,
+                cozinha completa, quartos confortáveis e bem ventilados, banheiros espaçosos, Wi-Fi, garagem e ambiente.
+                Destaca-se por suas praias paradisíacas, natureza preservada e uma estrutura completa de lazer.
+              </p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <!-- Card 2: Conectados -->
-        <div class="metric-card border-green">
-          <div class="metric-title">Conectados</div>
-          <div class="metric-value">{{ selectedVehicle.connected | number:'1.0-0':'pt-BR' }}</div>
-          <span class="metric-unit">unid.</span>
+      <!-- LADO DIREITO: O Carrossel de Imagens -->
+      <section class="dashboard-visual">
+        <div class="carousel-container">
+          <!-- Imagens -->
+          <div class="carousel-slide">
+            <div class="carousel-item active">
+              <img src="img costa do sauipe.jpg" alt="Slide 1">
+              <div class="caption">Costa do Sauipe</div>
+            </div>
+            <div class="carousel-item">
+              <img src="img imbassai.jpg" alt="Slide 2">
+              <div class="caption">Imbassai</div>
+            </div>
+            <div class="carousel-item">
+              <img src="img monte gordo.webp" alt="Slide 3">
+              <div class="caption">Monte Gordo</div>
+            </div>
+          </div>
+
+          <!-- Botões de Navegação -->
+          <button class="prev"
+            onclick="this.closest('.carousel-container').dispatchEvent(new CustomEvent('changeSlide', {detail: -1}))">❮</button>
+          <button class="next"
+            onclick="this.closest('.carousel-container').dispatchEvent(new CustomEvent('changeSlide', {detail: 1}))">❯</button>
         </div>
-
-        <!-- Card 3: Atualizações de Software -->
-        <div class="metric-card border-orange">
-          <div class="metric-title">Update Software</div>
-          <div class="metric-value">{{ selectedVehicle.softwareUpdates | number:'1.0-0':'pt-BR' }}</div>
-          <span class="metric-unit">unid.</span>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- IMAGEM CENTRAL DO VEÍCULO -->
-    <div class="image-section" *ngIf="selectedVehicle">
-      <div class="image-wrapper">
-        <img [src]="selectedVehicle.img" [alt]="selectedVehicle.vehicle" class="vehicle-img">
-      </div>
-    </div>
-
-    <!-- TABELA DE TELEMETRIA -->
-    <div class="table-container">
-      <div class="table-header">
-        <div class="search-box">
-          <span class="search-label">Código VIN</span>
-          <input type="text" class="search-input" 
-                 placeholder="Digite o código VIN..." 
-                 [(ngModel)]="vinSelecionado" 
-                 (input)="onVinSearch()">
-        </div>
-        <div class="status-indicator">
-          <span class="badge badge-waiting" *ngIf="!vehicleData">Aguardando código...</span>
-          <span class="badge badge-success" *ngIf="vehicleData">Código Vinculado</span>
-        </div>
-      </div>
-      
-      <div class="responsive-table-wrapper">
-        <table class="custom-table">
-          <thead>
-            <tr>
-              <th>Código VIN</th>
-              <th>Odômetro</th>
-              <th>Nível de Combustível</th>
-              <th>Status</th>
-              <th>Latitude (Lat)</th>
-              <th>Longitude (Long)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngIf="vehicleData">
-              <td class="font-monospace fw-bold">{{ vinSelecionado }}</td>
-              <td>{{ vehicleData.odometro | number:'1.0-0':'pt-BR' }} Km</td>
-              <td>
-                <div class="progress-container">
-                  <span class="progress-text">{{ vehicleData.nivelCombustivel }}%</span>
-                  <div class="progress-track">
-                    <div class="progress-bar" 
-                         [class.bg-danger]="vehicleData.nivelCombustivel <= 30"
-                         [class.bg-success]="vehicleData.nivelCombustivel > 30"
-                         [style.width.%]="vehicleData.nivelCombustivel">
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <span class="badge-status" [class.status-on]="vehicleData.status === 'on'">
-                  {{ vehicleData.status | uppercase }}
-                </span>
-              </td>
-              <td class="text-muted">{{ vehicleData.lat }}</td>
-              <td class="text-muted">{{ vehicleData.long }}</td>
-            </tr>
-            
-            <tr *ngIf="!vehicleData">
-              <td colspan="6" class="no-data">
-                Nenhum dado encontrado para o código VIN digitado.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      </section>
     </div>
 
   </div>

@@ -35,6 +35,13 @@
                         <label for="rememberMe" class="switch-slider"></label>
                     </div>
                 </div>
+                 <!-- NOVO: Campo de Aceitação dos Termos --> 
+        <div class="terms-row"> 
+          <input type="checkbox" id="acceptTerms" name="aceiteTermos" [(ngModel)]="aceiteTermos" required> 
+          <label for="acceptTerms" class="terms-label"> 
+            Li e aceito os <a href="/termos" target="_blank">Termos de Uso</a> e <a href="/privacidade" target="_blank">Política de Privacidade</a>. 
+          </label> 
+        </div> 
 
                 <!-- Botão Entrar -->
                 <button type="submit" class="btn-submit">Entrar</button>

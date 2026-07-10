@@ -15,6 +15,8 @@ export class LoginComponent {
   senha = '';
   erroMensagem = '';
   carregando = false;
+    aceiteTermos = false;
+
 
   private router = inject(Router);
 
@@ -24,9 +26,12 @@ export class LoginComponent {
       this.carregando = false;
       localStorage.setItem('usuario', 'true');
       this.router.navigate(['/dashboard']);
+        if (!this.aceiteTermos) {
+      this.erroMensagem = 'Você precisa aceitar os Termos de Uso para continuar.';}
+      
       return;
     }
-
+    console.log('Tentando logar com:', this.usuario);
     this.erroMensagem = 'Usuário ou senha inválidos.';
   }
 }

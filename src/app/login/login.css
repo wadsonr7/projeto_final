@@ -143,6 +143,29 @@ input:checked + .switch-slider {
 input:checked + .switch-slider:before {
   transform: translateX(14px);
 }
+.terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 20px; /* Espaço antes do botão entrar */
+  text-align: left;
+}
+
+.terms-row input[type='checkbox'] {
+  margin-top: 3px; /* Alinha o checkbox com a primeira linha de texto */
+  cursor: pointer;
+}
+
+.terms-label {
+  font-size: 14px;
+  color: #333; /* Ajuste a cor conforme seu tema */
+  line-height: 1.4;
+}
+
+.terms-label a {
+  color: #007bc3; /* Cor do link (ex: azul Ford/Casas) */
+  text-decoration: underline;
+}
 
 /* Botão Entrar Cinza */
 .btn-submit {

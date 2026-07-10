@@ -23,7 +23,7 @@ export class LoginComponent {
       this.erroMensagem = '';
       this.carregando = false;
       localStorage.setItem('usuario', 'true');
-      this.router.navigate(['/home']);
+      this.router.navigate(['/dashboard']);
       return;
     }
 

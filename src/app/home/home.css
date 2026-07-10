@@ -1,68 +1,65 @@
-/* ==========================================================================
-   1. CONFIGURAÇÕES GLOBAIS E RESET
-   ========================================================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-body,
-html {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #0a1410; /* Fundo escuro preventivo */
-}
-
-/* ==========================================================================
-   2. ESTRUTURA DO CONTAINER PRINCIPAL (TELA CHEIA)
-   ========================================================================== */
+/* Container Geral (Mantido para estrutura) */
 .layout-container {
-  width: 100vw;
+  display: flex;
   height: 100vh;
-  position: relative;
+  width: 100vw;
   overflow: hidden;
 }
 
-.main-content {
-  width: 100%;
-  height: 100%;
-  position: relative;
+/* Sidebar (Visual mais limpo e escuro profundo) */
+.sidebar {
+  width: 260px;
+  background-color: #0d1117;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
 }
 
-/* Imagem de Fundo Dinâmica */
+.menu-item {
+  color: #8b949e;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item:hover,
+.menu-item.active {
+  color: #ffffff;
+  background-color: #1b4d3e; /* Verde sofisticado */
+  transform: translateX(5px);
+}
+
+/* Conteúdo Principal */
+.main-content {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
 .bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
 }
 
-/* ==========================================================================
-   3. MÁSCARA / FILTRO VERDE GRADIENTE
-   ========================================================================== */
+/* Filtro Verde Gradiente Dinâmico */
 .green-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(20, 50, 40, 0.65) 0%, rgba(10, 30, 20, 0.45) 100%);
+  background: linear-gradient(135deg, rgba(20, 50, 40, 0.6) 0%, rgba(10, 30, 20, 0.4) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  z-index: 2;
 }
 
-/* ==========================================================================
-   4. CARTÃO PREMIUM GLASSMORPHISM
-   ========================================================================== */
+/* Cartão de Visitas Estilo Vidro (Glassmorphism) */
 .premium-card {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
@@ -73,21 +70,21 @@ html {
   text-align: center;
   max-width: 480px;
   width: 100%;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   position: relative;
   color: #ffffff;
-  animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeIn 0.8s ease-out;
 }
 
-/* Tag Superior 'Exclusivo' */
+/* Tag Flutuante no topo do cartão */
 .card-badge {
   position: absolute;
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
   background: #2e7d32;
-  color: #ffffff;
-  padding: 5px 16px;
+  color: white;
+  padding: 4px 16px;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 700;
@@ -96,7 +93,6 @@ html {
   box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4);
 }
 
-/* Textos do Cartão */
 .card-subtitle {
   font-size: 0.9rem;
   font-weight: 400;
@@ -113,7 +109,6 @@ html {
   margin-bottom: 16px;
   background: linear-gradient(to right, #ffffff, #e0e0e0);
   -webkit-background-clip: text;
-  background-clip: text; /* Correção aplicada para evitar o erro do VS Code */
   -webkit-text-fill-color: transparent;
 }
 
@@ -121,63 +116,53 @@ html {
   font-size: 1.05rem;
   color: #e0e0e0;
   font-weight: 300;
-  line-height: 1.5;
   margin-bottom: 30px;
 }
 
-/* Ícones / Detalhes de Recursos */
+/* Pequenos detalhes do cartão */
 .card-details {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 35px;
+  gap: 20px;
+  margin-bottom: 30px;
   font-size: 0.9rem;
   color: #cbd5e1;
 }
 
 .detail-item {
-  background: rgba(255, 255, 255, 0.06);
-  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ==========================================================================
-   5. BOTÃO DE AÇÃO (EXPLORAR IMÓVEIS)
-   ========================================================================== */
+/* Botão de Ação Principal (CTA) */
 .card-btn {
   background: #ffffff;
   color: #143228;
   border: none;
-  padding: 16px 32px;
+  padding: 14px 32px;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   width: 100%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Efeito Interativo do Botão */
 .card-btn:hover {
   background: #2e7d32;
   color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(46, 125, 50, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 125, 50, 0.4);
 }
 
-.card-btn:active {
-  transform: translateY(-1px);
-}
-
-/* ==========================================================================
-   6. ANIMAÇÕES
-   ========================================================================== */
+/* Animação de entrada suave */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
